@@ -7,7 +7,7 @@ interface EnemyProps {
 
 export const Enemy = ({ name, image, claim, isHit }: EnemyProps) => {
   return (
-    <div className={`flex flex-col items-center enemy-enter ${isHit ? 'shake' : ''}`}>
+    <div key={image} className={`flex flex-col items-center ${isHit ? 'shake' : ''}`}>
       {/* Enemy speech bubble */}
       <div className="bg-white/90 text-black p-3 rounded-lg mb-2 max-w-xs shadow-lg relative">
         <p className="text-sm font-bold">{claim}</p>
@@ -16,6 +16,7 @@ export const Enemy = ({ name, image, claim, isHit }: EnemyProps) => {
 
       {/* Enemy character */}
       <img
+        key={image}
         src={image}
         alt={name}
         className="w-32 h-32 object-contain"

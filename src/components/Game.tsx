@@ -30,7 +30,7 @@ export const Game = () => {
       <div className="flex-1 flex flex-col items-center justify-center w-full max-w-md">
         {/* Enemy */}
         {currentEnemy && (
-          <div className="mb-4">
+          <div className="mb-4" key={currentEnemy.type}>
             <Enemy
               name={currentEnemy.name}
               image={currentEnemy.image}

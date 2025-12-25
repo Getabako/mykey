@@ -105,7 +105,12 @@ export const useGameStore = create<GameState>((set, get) => ({
   },
 
   spawnEnemy: () => {
-    const randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
+    const state = get();
+    // 同じキャラが連続で出ないようにフィルタリング
+    const availableEnemies = state.currentEnemy
+      ? enemies.filter(e => e.type !== state.currentEnemy!.type)
+      : enemies;
+    const randomEnemy = availableEnemies[Math.floor(Math.random() * availableEnemies.length)];
     set({
       currentEnemy: randomEnemy,
       result: null,
