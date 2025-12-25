@@ -11,6 +11,11 @@ export const GameEndScreen = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-gradient-to-b from-slate-900 to-slate-800">
+      {/* ゲームタイトル */}
+      <div className="text-xl font-bold text-white mb-2">
+        マイキーの<span className="text-purple-400">VakaVakka</span>
+      </div>
+
       {/* 結果タイトル */}
       <div className={`text-4xl font-bold mb-6 ${isClear ? 'text-green-400' : 'text-red-400'}`}>
         {isClear ? 'GAME CLEAR!' : 'GAME OVER'}

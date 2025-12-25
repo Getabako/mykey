@@ -9,10 +9,10 @@ export const StartScreen = () => {
     <div className="fixed inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-gray-900 to-black z-50">
       <div className="text-center px-6">
         <h1 className="text-3xl font-bold text-white mb-2">
-          マイキーの論破ゲーム
+          マイキーの<span className="text-purple-400">VakaVakka</span>
         </h1>
         <p className="text-gray-400 mb-8 text-sm">
-          怪しい人たちを論破しよう!
+          怪しい人たちをバカにしよう!
         </p>
 
         <img
