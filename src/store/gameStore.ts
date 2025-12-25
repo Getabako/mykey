@@ -6,6 +6,11 @@ export type EnemyType = 'spiritual' | 'investor' | 'conspiracy' | 'fortune';
 
 export type ResultType = 'critical' | 'miss_button' | 'total_miss' | null;
 
+export type GameEndType = 'clear' | 'gameover' | null;
+
+const MAX_ROUNDS = 5;
+const CLEAR_SCORE = 200; // このスコア以上でクリア
+
 interface Enemy {
   type: EnemyType;
   name: string;
@@ -25,6 +30,9 @@ interface GameState {
   isAttacking: boolean;
   showBat: boolean;
   gameStarted: boolean;
+  currentRound: number;
+  maxRounds: number;
+  gameEnd: GameEndType;
 
   // Actions
   startGame: () => void;
@@ -34,6 +42,7 @@ interface GameState {
   setGaugePosition: (position: number) => void;
   handleButtonPress: (buttonType: EnemyType) => void;
   resetResult: () => void;
+  resetGame: () => void;
 }
 
 const enemies: Enemy[] = [
@@ -81,9 +90,17 @@ export const useGameStore = create<GameState>((set, get) => ({
   isAttacking: false,
   showBat: false,
   gameStarted: false,
+  currentRound: 0,
+  maxRounds: MAX_ROUNDS,
+  gameEnd: null,
 
   startGame: () => {
-    set({ gameStarted: true, score: 0 });
+    set({
+      gameStarted: true,
+      score: 0,
+      currentRound: 1,
+      gameEnd: null,
+    });
     get().spawnEnemy();
   },
 
@@ -154,14 +171,45 @@ export const useGameStore = create<GameState>((set, get) => ({
       setTimeout(() => set({ showBat: false }), 500);
     }
 
-    // Spawn next enemy after delay
+    // Check if game should end or continue
+    const newRound = state.currentRound + 1;
+    const newScore = state.score + scoreChange;
+
     setTimeout(() => {
       set({ isAttacking: false });
-      get().spawnEnemy();
+
+      if (state.currentRound >= MAX_ROUNDS) {
+        // ゲーム終了判定
+        if (newScore >= CLEAR_SCORE) {
+          set({ gameEnd: 'clear' });
+        } else {
+          set({ gameEnd: 'gameover' });
+        }
+      } else {
+        // 次のラウンドへ
+        set({ currentRound: newRound });
+        get().spawnEnemy();
+      }
     }, 3000);
   },
 
   resetResult: () => {
     set({ result: null, resultMessage: '' });
+  },
+
+  resetGame: () => {
+    set({
+      score: 0,
+      currentEnemy: null,
+      gaugePosition: 0,
+      isGaugeRunning: false,
+      result: null,
+      resultMessage: '',
+      isAttacking: false,
+      showBat: false,
+      gameStarted: false,
+      currentRound: 0,
+      gameEnd: null,
+    });
   },
 }));

@@ -5,14 +5,24 @@ import { TimingGauge } from './TimingGauge';
 import { ActionButtons } from './ActionButtons';
 import { ScoreDisplay } from './ScoreDisplay';
 import { ResultOverlay } from './ResultOverlay';
+import { GameEndScreen } from './GameEndScreen';
 
 export const Game = () => {
-  const { currentEnemy, isAttacking, showBat, result } = useGameStore();
+  const { currentEnemy, isAttacking, showBat, result, currentRound, maxRounds, gameEnd } = useGameStore();
+
+  // ゲーム終了画面
+  if (gameEnd) {
+    return <GameEndScreen />;
+  }
 
   return (
     <div className="min-h-screen flex flex-col items-center py-4 px-4 pb-36">
-      {/* Header - Score */}
-      <div className="w-full flex justify-center mb-4">
+      {/* Header - Score & Round */}
+      <div className="w-full flex justify-between items-center mb-4 max-w-md mx-auto">
+        <div className="bg-slate-800/80 rounded-lg px-3 py-2 text-white text-sm">
+          <span className="text-white/60">ROUND </span>
+          <span className="font-bold">{currentRound}/{maxRounds}</span>
+        </div>
         <ScoreDisplay />
       </div>
 
