@@ -35,16 +35,18 @@ export const Game = () => {
           <TimingGauge />
         </div>
 
-        {/* Mikey with Action Buttons around */}
-        <div className="relative flex items-center justify-center">
-          <div className="absolute">
-            <ActionButtons />
-          </div>
+        {/* Mikey */}
+        <div className="mb-8">
           <Mikey
             isAttacking={isAttacking}
             showBat={showBat}
             attackMessage={result === 'critical' ? currentEnemy?.mikeyAttack : undefined}
           />
+        </div>
+
+        {/* Action Buttons */}
+        <div className="w-full">
+          <ActionButtons />
         </div>
       </div>
 

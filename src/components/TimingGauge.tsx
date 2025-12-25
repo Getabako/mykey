@@ -17,7 +17,7 @@ export const TimingGauge = () => {
     }
 
     const animate = () => {
-      positionRef.current += directionRef.current * 2;
+      positionRef.current += directionRef.current * 0.8;
 
       if (positionRef.current >= 100) {
         positionRef.current = 100;
