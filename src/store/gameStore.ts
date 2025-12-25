@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 
+const BASE_URL = import.meta.env.BASE_URL;
+
 export type EnemyType = 'spiritual' | 'investor' | 'conspiracy' | 'fortune';
 
 export type ResultType = 'critical' | 'miss_button' | 'total_miss' | null;
@@ -38,7 +40,7 @@ const enemies: Enemy[] = [
   {
     type: 'spiritual',
     name: 'スピリチュアルさん',
-    image: '/images/spiritual.png',
+    image: `${BASE_URL}images/spiritual.png`,
     claim: '私には未来が見えます...',
     criticalResponse: 'マイキーさんのおっしゃる通りです！私が間違ってました...',
     mikeyAttack: '未来わかるんですよね？じゃあ今からバットで殴るの見えてました？',
@@ -46,7 +48,7 @@ const enemies: Enemy[] = [
   {
     type: 'investor',
     name: '投資詐欺師',
-    image: '/images/investor.png',
+    image: `${BASE_URL}images/investor.png`,
     claim: '絶対に儲かる投資話があるんですよ！',
     criticalResponse: 'マイキーさんのおっしゃる通りです！詐欺でした...',
     mikeyAttack: '絶対儲かる株なんて誰にもわからないんですよ。わかってたら誰にも教えないでしょ？',
@@ -54,7 +56,7 @@ const enemies: Enemy[] = [
   {
     type: 'conspiracy',
     name: '陰謀論者',
-    image: '/images/inboron.png',
+    image: `${BASE_URL}images/inboron.png`,
     claim: '政府は真実を隠しているんです！国家機密を知ってしまったんです！',
     criticalResponse: 'マイキーさんのおっしゃる通りです！妄想でした...',
     mikeyAttack: 'そもそもそんな国家機密本当に知ってるなら消されてますけど？なんで生きてるんですか？',
@@ -62,7 +64,7 @@ const enemies: Enemy[] = [
   {
     type: 'fortune',
     name: '占い師',
-    image: '/images/uranai.png',
+    image: `${BASE_URL}images/uranai.png`,
     claim: 'あなたの運命を占いましょう...',
     criticalResponse: 'マイキーさんのおっしゃる通りです！統計でした...',
     mikeyAttack: '占いって結局バーナム効果でしょ？誰にでも当てはまること言ってるだけじゃないですか？',

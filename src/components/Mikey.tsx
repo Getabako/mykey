@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+const BASE_URL = import.meta.env.BASE_URL;
+
 interface MikeyProps {
   isAttacking: boolean;
   showBat: boolean;
@@ -18,8 +20,8 @@ export const Mikey = ({ isAttacking, showBat, attackMessage }: MikeyProps) => {
 
   // 待機時: mykey2, mykey3 を交互
   // 攻撃時: mykey1, mykey2 を交互
-  const idleImages = ['/images/mykey2.png', '/images/mykey3.png'];
-  const attackImages = ['/images/mykey1.png', '/images/mykey2.png'];
+  const idleImages = [`${BASE_URL}images/mykey2.png`, `${BASE_URL}images/mykey3.png`];
+  const attackImages = [`${BASE_URL}images/mykey1.png`, `${BASE_URL}images/mykey2.png`];
 
   const currentImage = isAttacking ? attackImages[frame] : idleImages[frame];
 
@@ -36,7 +38,7 @@ export const Mikey = ({ isAttacking, showBat, attackMessage }: MikeyProps) => {
         {/* Bat overlay during attack */}
         {showBat && (
           <img
-            src="/images/bat.png"
+            src={`${BASE_URL}images/bat.png`}
             alt="バット"
             className="absolute top-0 right-0 w-24 h-24 bat-swing"
             style={{ transformOrigin: 'bottom right' }}

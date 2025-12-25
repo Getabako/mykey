@@ -1,5 +1,7 @@
 import { useGameStore } from '../store/gameStore';
 
+const BASE_URL = import.meta.env.BASE_URL;
+
 export const StartScreen = () => {
   const startGame = useGameStore((state) => state.startGame);
 
@@ -14,7 +16,7 @@ export const StartScreen = () => {
         </p>
 
         <img
-          src="/images/mykey1.png"
+          src={`${BASE_URL}images/mykey1.png`}
           alt="マイキー"
           className="w-48 h-48 object-contain mx-auto mb-8"
         />
