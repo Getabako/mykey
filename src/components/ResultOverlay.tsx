@@ -9,8 +9,7 @@ export const ResultOverlay = () => {
     switch (result) {
       case 'critical':
         return {
-          bg: 'bg-green-500/20',
-          border: 'border-green-500',
+          border: 'border-green-400',
           title: 'CRITICAL HIT!',
           titleColor: 'text-green-400',
           scoreText: '+100',
@@ -18,8 +17,7 @@ export const ResultOverlay = () => {
         };
       case 'miss_button':
         return {
-          bg: 'bg-yellow-500/20',
-          border: 'border-yellow-500',
+          border: 'border-yellow-400',
           title: 'ボタン違い...',
           titleColor: 'text-yellow-400',
           scoreText: '±0',
@@ -27,8 +25,7 @@ export const ResultOverlay = () => {
         };
       case 'total_miss':
         return {
-          bg: 'bg-red-500/20',
-          border: 'border-red-500',
+          border: 'border-red-400',
           title: 'アンチ化!',
           titleColor: 'text-red-400',
           scoreText: '-50',
@@ -41,29 +38,41 @@ export const ResultOverlay = () => {
   if (!style) return null;
 
   return (
-    <div className={`fixed inset-0 flex items-center justify-center z-50 ${style.bg} backdrop-blur-sm`}>
-      <div className={`bg-black/80 ${style.border} border-2 rounded-2xl p-6 max-w-sm mx-4 text-center`}>
-        <h2 className={`text-2xl font-bold ${style.titleColor} mb-4`}>
-          {style.title}
-        </h2>
+    <div className="w-full max-w-md mx-auto px-4">
+      {/* RPG風メッセージウィンドウ */}
+      <div className={`relative bg-slate-900/95 ${style.border} border-4 rounded-lg p-4 shadow-2xl`}>
+        {/* 角の装飾 */}
+        <div className={`absolute -top-1 -left-1 w-3 h-3 ${style.border} border-t-4 border-l-4 rounded-tl`} />
+        <div className={`absolute -top-1 -right-1 w-3 h-3 ${style.border} border-t-4 border-r-4 rounded-tr`} />
+        <div className={`absolute -bottom-1 -left-1 w-3 h-3 ${style.border} border-b-4 border-l-4 rounded-bl`} />
+        <div className={`absolute -bottom-1 -right-1 w-3 h-3 ${style.border} border-b-4 border-r-4 rounded-br`} />
 
-        {result === 'critical' && currentEnemy && (
-          <div className="mb-4 bg-white/10 rounded-lg p-3">
-            <p className="text-white text-sm font-bold mb-2">マイキー:</p>
-            <p className="text-white text-sm">「{currentEnemy.mikeyAttack}」</p>
-          </div>
-        )}
-
-        <div className="bg-white/10 rounded-lg p-3 mb-4">
-          <p className="text-white text-sm">
-            {result === 'critical' ? `${currentEnemy?.name}:` : ''}
-          </p>
-          <p className="text-white text-sm">「{resultMessage}」</p>
+        {/* タイトルとスコア */}
+        <div className="flex justify-between items-center mb-2">
+          <span className={`font-bold ${style.titleColor}`}>{style.title}</span>
+          <span className={`font-bold ${style.scoreColor}`}>{style.scoreText}</span>
         </div>
 
-        <p className={`text-3xl font-bold ${style.scoreColor}`}>
-          {style.scoreText}
-        </p>
+        {/* メッセージ */}
+        <div className="text-white text-sm leading-relaxed">
+          {result === 'critical' && currentEnemy && (
+            <p className="mb-2">
+              <span className="text-yellow-300 font-bold">マイキー：</span>
+              「{currentEnemy.mikeyAttack}」
+            </p>
+          )}
+          <p>
+            <span className="text-cyan-300 font-bold">
+              {result === 'critical' ? `${currentEnemy?.name}：` : '相手：'}
+            </span>
+            「{resultMessage}」
+          </p>
+        </div>
+
+        {/* 点滅する▼マーク */}
+        <div className="text-right mt-2">
+          <span className="text-white/60 animate-pulse">▼</span>
+        </div>
       </div>
     </div>
   );
