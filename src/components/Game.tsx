@@ -1,0 +1,55 @@
+import { useGameStore } from '../store/gameStore';
+import { Mikey } from './Mikey';
+import { Enemy } from './Enemy';
+import { TimingGauge } from './TimingGauge';
+import { ActionButtons } from './ActionButtons';
+import { ScoreDisplay } from './ScoreDisplay';
+import { ResultOverlay } from './ResultOverlay';
+
+export const Game = () => {
+  const { currentEnemy, isAttacking, showBat, result } = useGameStore();
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-between py-6 px-4">
+      {/* Header - Score */}
+      <div className="w-full flex justify-center">
+        <ScoreDisplay />
+      </div>
+
+      {/* Main game area */}
+      <div className="flex-1 flex flex-col items-center justify-center w-full max-w-md">
+        {/* Enemy */}
+        {currentEnemy && (
+          <div className="mb-6">
+            <Enemy
+              name={currentEnemy.name}
+              image={currentEnemy.image}
+              claim={currentEnemy.claim}
+              isHit={result === 'critical'}
+            />
+          </div>
+        )}
+
+        {/* Timing Gauge */}
+        <div className="mb-6 w-full">
+          <TimingGauge />
+        </div>
+
+        {/* Mikey with Action Buttons around */}
+        <div className="relative flex items-center justify-center">
+          <div className="absolute">
+            <ActionButtons />
+          </div>
+          <Mikey
+            isAttacking={isAttacking}
+            showBat={showBat}
+            attackMessage={result === 'critical' ? currentEnemy?.mikeyAttack : undefined}
+          />
+        </div>
+      </div>
+
+      {/* Result Overlay */}
+      <ResultOverlay />
+    </div>
+  );
+};
